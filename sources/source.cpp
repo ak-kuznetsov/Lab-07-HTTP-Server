@@ -27,7 +27,6 @@ std::string make_json(const json& data) {
   return ss.str();
 }
 
-
 template <class Body, class Allocator, class Send>
 void handle_request(http::request<Body, http::basic_fields<Allocator>>&& req,
                     Send&& send, const std::shared_ptr<std::timed_mutex>& mutex,
@@ -42,7 +41,6 @@ void handle_request(http::request<Body, http::basic_fields<Allocator>>&& req,
     res.prepare_payload();
     return res;
   };
-
 
   auto const not_found = [&req](beast::string_view target) {
     http::response<http::string_body> res{http::status::not_found,
@@ -82,7 +80,6 @@ void handle_request(http::request<Body, http::basic_fields<Allocator>>&& req,
   if (!input.has_value()) {
     return send(bad_request(R"(JSON format: {"input": "<user_input>"}!)"));
   }
-
 
   mutex->lock();
   auto result = collection->Suggest(input.value());
@@ -130,7 +127,6 @@ struct send_lambda {
     http::write(stream_, sr, ec_);
   }
 };
-
 
 void do_session(net::ip::tcp::socket& socket,
                 const std::shared_ptr<Suggestions_collection>& collection,
@@ -205,7 +201,5 @@ int Run_server(int argc, char* argv[]) {
   }
 }
 
-// Using: ./cmake-build-debug/main 0.0.0.0 8080
-int main(int argc, char* argv[]) {
-  return Run_server(argc, argv);
-}
+// Using: ./cmake-build-debug/demo 0.0.0.0 8080
+int main(int argc, char* argv[]) { return Run_server(argc, argv); }
