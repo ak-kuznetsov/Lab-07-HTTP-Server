@@ -64,6 +64,8 @@
 Поле `cost` определяет значение поля `position`: чем больше `cost` тем меньше значение `position`.</br>
 (чем ниже стоимость, тем выше вариант)
 
+`curl -d '{"input":"hel"}' -H "Content-Type: application/json" -X POST http://localhost:8080/v1/api/suggest`
+
 ## Рекомендации
 
 * для реализации HTTP сервера используйте готовые библиотеки
